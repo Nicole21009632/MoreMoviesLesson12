@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
                     int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
                     DBHelper dbh = new DBHelper(MainActivity.this);
-                    long inserted_id = dbh.insertMovie(movieTitle, genre, year, rating);
 
                     if (year >= 1888 && year <= currentYear) { // 1888 is the year of the oldest film - google
+                        long inserted_id = dbh.insertMovie(movieTitle, genre, year, rating);
                         if (inserted_id != -1) {
                             Toast.makeText(MainActivity.this, "Added " + movieTitle + " to the movie list successfully!", Toast.LENGTH_LONG).show();
 
