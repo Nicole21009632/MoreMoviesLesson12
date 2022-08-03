@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ShowListActivity extends AppCompatActivity {
 
-    Button btnPG13Movies;
+    Button btnPG13Movies, btnBack;
     ListView lvMovies;
     ArrayList<Movie> alMovie;
     ArrayList<String> alRating;
@@ -31,6 +31,7 @@ public class ShowListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_list);
 
         btnPG13Movies = findViewById(R.id.btnPG13Movies);
+        btnBack = findViewById(R.id.btnBackToInsertMovie);
         lvMovies = findViewById(R.id.listViewMovie);
         spinnerRating = findViewById(R.id.spinnerRating);
 
@@ -51,6 +52,14 @@ public class ShowListActivity extends AppCompatActivity {
                 alMovie.addAll(dbh.getAllPG13Movies());
                 caMovie.notifyDataSetChanged();
                 Toast.makeText(ShowListActivity.this, "Displaying all PG 13 Movies", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ShowListActivity.this, MainActivity.class);
+                startActivity(i);
             }
         });
 

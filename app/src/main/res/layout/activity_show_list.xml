@@ -12,6 +12,12 @@
         android:layout_height="wrap_content"
         android:text="@string/show_all_pg_13_movies" />
 
+    <Button
+        android:id="@+id/btnBackToInsertMovie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/back" />
+
     <Spinner
         android:id="@+id/spinnerRating"
         android:layout_width="match_parent"

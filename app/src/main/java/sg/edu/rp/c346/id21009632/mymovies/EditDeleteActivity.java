@@ -1,7 +1,9 @@
 package sg.edu.rp.c346.id21009632.mymovies;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -109,20 +111,69 @@ public class EditDeleteActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper dbh = new DBHelper(EditDeleteActivity.this);
-                int id = data.getId();
-                Log.d("Movie id: ", id + "");
 
-                dbh.deleteMovie(data.getId());
-                finish();
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(EditDeleteActivity.this);
+                myBuilder.setTitle("Danger");
+                myBuilder.setMessage("Are you sure you want to delete the movie " + data.getTitle());
+                myBuilder.setCancelable(false);
 
+
+                myBuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        DBHelper dbh = new DBHelper(EditDeleteActivity.this);
+                        int id = data.getId();
+                        Log.d("Movie id: ", id + "");
+
+                        dbh.deleteMovie(data.getId());
+                        Toast.makeText(EditDeleteActivity.this, data.getTitle() + " has been deleted", Toast.LENGTH_LONG).show();
+
+                        finish();
+                    }
+                });
+                myBuilder.setPositiveButton("Cancel", null);
+
+                AlertDialog myDialog = myBuilder.create();
+                myDialog.show();
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+                String movieTitle = data.getTitle();
+                String genre = data.getGenre();
+                int year = data.getYear();
+                String rating = data.getRating().toString();
+
+                String newMovieTite = etTitle.getText().toString();
+                String newGenre = etGenre.getText().toString();
+                int newYear = Integer.parseInt(etyear.getText().toString());
+                String newRating = spinRating.getSelectedItem().toString();
+
+                if ((!movieTitle.equals(newMovieTite)) || (!genre.equals(newGenre)) || (year != newYear) || (!rating.equals(newRating))) {
+                    AlertDialog.Builder myBuilder = new AlertDialog.Builder(EditDeleteActivity.this);
+                    myBuilder.setTitle("Danger");
+                    myBuilder.setMessage("Are you sure you want to discard the changes made?");
+                    myBuilder.setCancelable(false);
+
+                    myBuilder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int which) {
+                            finish();
+                            Toast.makeText(EditDeleteActivity.this, "Your changes have been discarded", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+
+                    myBuilder.setPositiveButton("Do not discard", null);
+                    AlertDialog myDialog = myBuilder.create();
+                    myDialog.show();
+                } else {
+                    Intent i = new Intent(EditDeleteActivity.this, ShowListActivity.class);
+                    startActivity(i);
+                }
             }
         });
     }
