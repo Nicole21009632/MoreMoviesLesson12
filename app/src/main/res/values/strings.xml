@@ -3,7 +3,6 @@
     <string name="year">Year</string>
     <string name="movie_title">Movie Title</string>
     <string name="genre">Genre</string>
-    <string name="show_all_pg_13_movies">Show all PG-13 Movies</string>
     <string name="back">Back to Insert Movie</string>
     <string-array name="movieRatings">
         <item>G</item>

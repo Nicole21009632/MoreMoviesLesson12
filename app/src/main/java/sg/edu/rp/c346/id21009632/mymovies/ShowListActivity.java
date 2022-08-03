@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ShowListActivity extends AppCompatActivity {
 
-    Button btnPG13Movies, btnBack;
+    Button btnBack;
     ListView lvMovies;
     ArrayList<Movie> alMovie;
     ArrayList<String> alRating;
@@ -30,7 +30,6 @@ public class ShowListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_list);
 
-        btnPG13Movies = findViewById(R.id.btnPG13Movies);
         btnBack = findViewById(R.id.btnBackToInsertMovie);
         lvMovies = findViewById(R.id.listViewMovie);
         spinnerRating = findViewById(R.id.spinnerRating);
@@ -44,22 +43,10 @@ public class ShowListActivity extends AppCompatActivity {
 
         lvMovies.setAdapter(caMovie);
 
-        btnPG13Movies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBHelper dbh = new DBHelper(ShowListActivity.this);
-                alMovie.clear();
-                alMovie.addAll(dbh.getAllPG13Movies());
-                caMovie.notifyDataSetChanged();
-                Toast.makeText(ShowListActivity.this, "Displaying all PG 13 Movies", Toast.LENGTH_LONG).show();
-            }
-        });
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ShowListActivity.this, MainActivity.class);
-                startActivity(i);
+                finish();
             }
         });
 
@@ -70,7 +57,7 @@ public class ShowListActivity extends AppCompatActivity {
                 DBHelper dbh = new DBHelper(ShowListActivity.this);
                 String rating = spinnerRating.getSelectedItem().toString();
 
-                if (rating != "Please select a rating") {
+                if (rating != "Show all movies") {
                     alMovie.clear();
                     alMovie.addAll(dbh.getAllMoviesByRating(rating));
                     caMovie.notifyDataSetChanged();
@@ -113,7 +100,7 @@ public class ShowListActivity extends AppCompatActivity {
         caMovie.notifyDataSetChanged();
 
         alRating.clear();
-        alRating.add("Please select a rating");
+        alRating.add("Show all movies");
         alRating.addAll(dbh.getAllMoviesByRating());
         aaRating.notifyDataSetChanged();
     }

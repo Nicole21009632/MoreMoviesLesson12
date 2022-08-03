@@ -171,8 +171,7 @@ public class EditDeleteActivity extends AppCompatActivity {
                     AlertDialog myDialog = myBuilder.create();
                     myDialog.show();
                 } else {
-                    Intent i = new Intent(EditDeleteActivity.this, ShowListActivity.class);
-                    startActivity(i);
+                    finish();
                 }
             }
         });
